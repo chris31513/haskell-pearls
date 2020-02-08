@@ -20,4 +20,18 @@ module Coloracion where
     type Coloracion = [(Color, Balcanes)]
 
     esBuena :: Ady -> Coloracion -> Bool
-    esBuena xs ((c, b):ys) = False
+    esBuena _ [] = True
+    esBuena [] _ = True
+    esBuena (x:xs) ys = if c1 /= Nothing && c2 /= Nothing then (quitaMaybe c1) /= (quitaMaybe c2) && (esBuena xs ys) else (esBuena xs ys) where c1 = (getColor (fst x) ys)
+                                                                                                                                                c2 = (getColor (snd x) ys)
+
+    getColor :: Balcanes -> Coloracion -> Maybe Color
+    getColor _ [] = Nothing
+    getColor b (x:xs) = if (snd x) == b then Just (fst x) else getColor b xs
+
+    inColoracion :: Balcanes -> Coloracion -> Bool
+    inColoracion _ [] = False
+    inColoracion b (x:xs) = if (snd x) == b then True else inColoracion b xs
+
+    quitaMaybe :: Maybe Color -> Color
+    quitaMaybe (Just c) = c

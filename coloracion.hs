@@ -1,4 +1,7 @@
 module Coloracion where 
+    import Data.List
+    import System.Random
+    import System.IO.Unsafe
 
     data Color = Rojo | Amarillo | Verde | Azul deriving (Eq, Show)
 
@@ -29,9 +32,28 @@ module Coloracion where
     getColor _ [] = Nothing
     getColor b (x:xs) = if (snd x) == b then Just (fst x) else getColor b xs
 
-    inColoracion :: Balcanes -> Coloracion -> Bool
-    inColoracion _ [] = False
-    inColoracion b (x:xs) = if (snd x) == b then True else inColoracion b xs
-
     quitaMaybe :: Maybe Color -> Color
     quitaMaybe (Just c) = c
+
+    coloraciones :: Ady -> [Coloracion]
+    coloraciones _ = []
+
+    quitaRepetidos :: Coloracion -> Coloracion
+    quitaRepetidos [] = []
+    quitaRepetidos (x:xs) = union [x] (quitaRepetidos (xs \\ ([(c, (snd x)) | c <- [Rojo, Amarillo, Verde, Azul]] \\ [x])))
+
+    coloracion :: Ady -> Coloracion
+    coloracion [] = []
+    coloracion (a:ady) = if esBuena (a:ady) (quitaRepetidos c) then c else (coloracion (a:ady)) where c = union ([((quitaIo (colorRandom [Rojo, Amarillo, Verde, Azul])), (fst a))]) (union ([((quitaIo (colorRandom [Rojo, Amarillo, Verde, Azul])), (snd a))]) (coloracion ady))
+
+    balcanEnColoracion :: Balcanes -> Coloracion -> Bool
+    balcanEnColoracion _ [] = False
+    balcanEnColoracion b (x:xs) = if ((snd x) == b) then True else balcanEnColoracion b xs
+
+    quitaIo :: IO Color -> Color
+    quitaIo c = (unsafePerformIO c)
+
+    colorRandom :: [Color] -> IO Color
+    colorRandom l = do
+        i <- randomRIO (0, length l - 1)
+        return $ l !! i

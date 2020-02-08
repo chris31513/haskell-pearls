@@ -36,7 +36,10 @@ module Coloracion where
     quitaMaybe (Just c) = c
 
     coloraciones :: Ady -> [Coloracion]
-    coloraciones _ = []
+    coloraciones ady = coloracionesAux ady []
+
+    coloracionesAux :: Ady -> [Coloracion] -> [Coloracion]
+    coloracionesAux ady xs = if (length (xs)) == (length (permutations [Rojo, Amarillo, Verde, Azul])) then xs else coloracionesAux ady (union (xs) ([coloracion (ady)]))
 
     quitaRepetidos :: Coloracion -> Coloracion
     quitaRepetidos [] = []

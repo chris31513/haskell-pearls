@@ -18,4 +18,6 @@ module Sets where
 
 
   inarow :: (Eq a) => [a] -> Int
-  inarow (x:xs) = if (elem x xs) then 1 + (inarow) else 0
+  inarow [] = 0
+  inarow [x] = 1
+  inarow (x:xs) = if (x == (head xs)) then 1 + (inarow xs) else (inarow xs)

@@ -21,3 +21,7 @@ module Sets where
   inarow [] = 0
   inarow [x] = 1
   inarow (x:xs) = if (x == (head xs)) then 1 + (inarow xs) else (inarow xs)
+
+  ramanujan :: Int -> [(Int, Int, Int, Int)]
+  ramanujan 0 = []
+  ramanujan n = [(a, b, c, d) | a <- [0..n], b <- [0..n], c <- [0..n], d <- [0..n], (a^3) + (b^3) == (c^3) + (d^3)]

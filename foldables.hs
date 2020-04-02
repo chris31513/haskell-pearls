@@ -53,6 +53,4 @@ module Foldables where
         where
             interleave :: [a] -> a -> [a] -> [[a]]
             interleave xs x [] = [xs ++ [x]]
-            interleave xs x (y:ys) =
-                (xs ++ (x:y:ys)):(interleave (xs ++ [y]) x ys)
-    
+            interleave xs x (y:ys) = (xs ++ (x:y:ys)):(interleave (xs ++ [y]) x ys)

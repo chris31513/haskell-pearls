@@ -55,6 +55,4 @@ module Foldables where
             interleave xs x [] = [xs ++ [x]]
             interleave xs x (y:ys) =
                 (xs ++ (x:y:ys)):(interleave (xs ++ [y]) x ys)
-
-    unmerge :: (Ord a) => [a] -> [([a], [a])]
     
